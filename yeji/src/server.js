@@ -21,7 +21,7 @@ const wss = new WebSocket.Server({ server });
 
 // connection이 생겼을 때, socket으로 즉시 메세지를 보내기
 wss.on("connection", (socket) =>{
-//    console.log(socket); 
+    //    console.log(socket); 
     // app.js와 동일하게 console 출력 
     console.log("Connected to Browser ✅");
     socket.send("hello!!!");        // socket으로 data보내기 (connection이 생겼는데 console에 뜨는 것이 아무것도 없음=> message는 보냈지만 frontend에선 아무것도 해주지 않았기 때문에)

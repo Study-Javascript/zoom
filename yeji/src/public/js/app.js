@@ -20,3 +20,8 @@ socket.addEventListener("close", () => {
 });
 
 // 4. 어떤 순서로 작동하는지 보기
+/*
+    1. web에서 refresh 되면 const socket이 실행됨
+    2. 그리고 난 후 모든 addEventListener가 설정된다
+    3. 서버와 연결되면 MessageEvent가 실행된다
+*/
