@@ -10,21 +10,25 @@ app.use("/public", express.static(__dirname + "/public"));
 app.get("/",(req,res) => res.render("home"));
 app.get("/*", (req,res) => res.redirect("/"));
 
+function handleConnection(socket){ 
+    console.log(socket); 
+}
+
 const handleListen = () => console.log(`Listening on http://localhost:3000`);
 
 const server = http.createServer(app); 
 const wss = new WebSocket.Server({ server });
 
-function handleConnection(socket){ 
-    console.log(socket); 
-}
-
-// connection 안에 위와 같은 역할을 하는 익명 함수 만들어주기 => 그러면 socket이 현재 어떤 상태인지 알기 쉽다 : connection이 생기면 socket을 받는다는 것을 알 수 있기 때문에
-// (event를 다룰 때도 이렇게 하는게 좋다)
-// socket에 있는 method 사용하기
+// connection이 생겼을 때, socket으로 즉시 메세지를 보내기
 wss.on("connection", (socket) =>{
 //    console.log(socket); 
-    socket.send("hello!!!");        // socket으로 data보내기
+    // app.js와 동일하게 console 출력 
+    console.log("Connected to Browser ✅");
+    socket.send("hello!!!");        // socket으로 data보내기 (connection이 생겼는데 console에 뜨는 것이 아무것도 없음=> message는 보냈지만 frontend에선 아무것도 해주지 않았기 때문에)
 });
+
+server.listen(3000, handleListen);
+
+wss.on("connection", handleConnection);
 
 server.listen(3000, handleListen);
